@@ -1,1 +1,1 @@
-/home/morgado/.dotfiles/.config/nvim/init.vim
+/home/morgado/.vimrc
