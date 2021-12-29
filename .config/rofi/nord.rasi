@@ -9,10 +9,10 @@
 configuration {
 
 	font: "Envy Code R 10";
-	width: 30;
+	width: 50;
 	line-margin: 10;
-	lines: 6;
-	columns: 2;
+	lines: 10;
+	columns: 3;
 
     display-ssh:    "";
     display-run:    "";
@@ -73,7 +73,7 @@ mainbox {
 
 message {
     color: @nord0;
-    padding: 5;
+    padding: 6;
     border-color: @foreground;
     border:  0px 2px 2px 2px;
     background-color: @nord7;
@@ -81,7 +81,7 @@ message {
 
 inputbar {
     color: @nord6;
-    padding: 11px;
+    padding: 5px;
     background-color: #3b4252;
 
     border: 1px;
@@ -99,7 +99,7 @@ prompt {
 }
 
 listview {
-    padding: 8px;
+    padding: 5px;
     border-radius: 0px 0px 6px 6px;
     border-color: @nord10;
     border: 0px 1px 1px 1px;
@@ -117,7 +117,7 @@ element {
 }
 
 element selected.normal {
-	background-color: @nord7;
+	background-color: @nord9;
 	text-color: #2e3440;
 }
 
