@@ -50,8 +50,8 @@ set $right l
 floating_modifier Mod1
 
 # start a terminal
-bindsym Mod1+Return exec $HOME/.config/i3/open_tmux.sh
-bindsym Mod1+Shift+Return exec $term
+bindsym Mod1+Shift+Return exec $HOME/.config/i3/open_tmux.sh
+bindsym Mod1+Return exec $term
 
 
 # kill focused window
