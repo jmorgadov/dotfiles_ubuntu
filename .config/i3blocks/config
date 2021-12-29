@@ -1,0 +1,62 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+# Change $SCRIPT_DIR to the location of your scripts!
+
+[cmus_status]
+command=$SCRIPT_DIR/cmus_status.sh
+interval=1
+
+[net_usage]
+command=$SCRIPT_DIR/net_usage.sh
+markup=pango
+interval=1
+
+[mem_usage]
+command=$SCRIPT_DIR/mem_usage.sh
+interval=1
+markup=pango
+
+[cpu_usage]
+command=$SCRIPT_DIR/cpu_usage.sh
+interval=1
+markup=pango
+
+[volume]
+label=Vol:
+command=$SCRIPT_DIR/volume.sh
+interval=once
+signal=10
+
+[time]
+command=date '+%c'
+interval=1
+
+[battery]
+command=$SCRIPT_DIR/battery.sh
+markup=pango
+interval=1
+

@@ -1,0 +1,98 @@
+#!/usr/bin/bash
+
+DEVICE_PATH="/media"
+MOUNT=true
+
+while getopts "uh" opt; do
+	case $opt in
+		u)
+			MOUNT=false
+			;;
+		h)
+			echo "Usage: edm [-u] [-h]"
+			echo "  -u: unmount device"
+			echo "  -h: print this help"
+			exit 0
+			;;
+	esac
+done
+
+ask_dev_name () {
+	read -p "Enter the name of the device: " NAME
+	DEVICE_NAME="$NAME"
+	echo $DEVICE_NAME
+}
+
+mount_dev(){
+	# Create mount path if it doesn't exist
+	if [ ! -d "$DEVICE_PATH" ]; then
+		mkdir -p "$DEVICE_PATH"
+	fi
+
+	# Show all devices
+	DEVICES="$(lsblk -o NAME,FSTYPE,LABEL,SIZE,FSUSE%,TYPE,MOUNTPOINT -l | grep "part\s*$")"
+	if [ -z "$DEVICES" ]; then
+		echo "No devices found"
+		exit 1
+	fi
+
+	# Select device
+	SEL_DEVICE=$(echo "$DEVICES" | fzf)
+	if [ -z "$SEL_DEVICE" ]; then
+		echo "No device selected"
+		exit 1
+	fi
+	SEL_DEVICE_NAME=$(echo "$SEL_DEVICE" | awk '{print $1}')
+	echo "Selected device: $SEL_DEVICE_NAME"
+
+	while true; do
+		DEVICE_NAME=$(ask_dev_name $LABEL)
+		if [ -z "$DEVICE_NAME" ]; then
+			echo "No device name entered"
+			continue
+		fi
+		if [ -d "$DEVICE_PATH/$DEVICE_NAME" ]; then
+			echo "Device name '$DEVICE_NAME' already exists"
+			echo "Try another name"
+		else
+			break
+		fi
+	done
+
+	# Create the mount path
+	MOUNT_PATH="$DEVICE_PATH/$DEVICE_NAME"
+	mkdir -p "$MOUNT_PATH"
+
+	# Mount device
+	MOUNT_DEV="/dev/$SEL_DEVICE_NAME"
+	echo "Mounting $MOUNT_DEV at $MOUNT_PATH ..."
+	mount "$MOUNT_DEV" "$MOUNT_PATH"
+}
+
+unmount_dev(){
+	MOUNTED_DEVICES="$(lsblk -o NAME,FSTYPE,LABEL,SIZE,FSUSE%,TYPE,MOUNTPOINT -l | grep "part /..*")"
+	if [ -z "$MOUNTED_DEVICES" ]; then
+		echo "No devices mounted"
+		exit 1
+	fi
+	SEL_DEVICE=$(echo "$MOUNTED_DEVICES" | fzf)
+	if [ -z "$SEL_DEVICE" ]; then
+		echo "No device selected"
+		exit 1
+	fi
+	SEL_DEVICE_NAME=$(echo "$SEL_DEVICE" | awk '{print $1}')
+	MOUNT_POINT=$(echo "$SEL_DEVICE" | grep -oP '/[^\s]*$')
+	echo "Selected $SEL_DEVICE_NAME at $MOUNT_POINT"
+	echo "Unmounting $MOUNT_POINT ..."
+	umount "$MOUNT_POINT"
+	if [ -d "$MOUNT_POINT" ]; then
+		echo "Removing $MOUNT_POINT ..."
+		rmdir "$MOUNT_POINT"
+	fi
+}
+
+if $MOUNT; then
+	mount_dev
+else 
+	unmount_dev
+fi

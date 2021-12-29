@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+INPUT=$1
+OUTPUT=$2
+CRF=28
+
+# if $3 is specified, use it as the CRF
+if [ -n "$3" ]; then
+	CRF=$3
+fi
+
+exec ffmpeg -i "$INPUT" -vcodec libx265 -crf "$CRF" "$OUTPUT"

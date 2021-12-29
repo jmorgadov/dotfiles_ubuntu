@@ -1,0 +1,1 @@
+/home/morgado/.dotfiles/.config/ranger/commands.py
