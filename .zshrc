@@ -106,5 +106,6 @@ alias vw="nvim -c \"VimwikiIndex\""
 alias vr="nvim ~/.vimrc"
 alias vs="nvim -S .session.vim"
 alias dotf="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
+alias vdf="GIT_DIR=$HOME/dotfiles GIT_WORK_TREE=$HOME nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
