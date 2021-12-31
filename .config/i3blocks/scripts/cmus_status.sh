@@ -16,7 +16,7 @@ if [ "$STATUS" = "playing" ]; then
 elif [ "$STATUS" = "paused" ]; then
 	STATUS_ICON=""
 else
-	TRUNKED_TRACK="Nothing playing"
+	exit 0
 fi
 
 echo "$STATUS_ICON $TRUNKED_TRACK"
