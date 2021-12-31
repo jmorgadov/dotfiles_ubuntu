@@ -8,8 +8,18 @@ LOG_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/net_usage"
 
 read PREV_RX PREV_TX < "$LOG_FILE"
 
-CURRENT_RX=$(($(cat /sys/class/net/*/statistics/rx_bytes | paste -sd '+')))
-CURRENT_TX=$(($(cat /sys/class/net/*/statistics/tx_bytes | paste -sd '+')))
+CURRENT_RX=$(($( \
+	ls -1 /sys/class/net/ \
+	| grep -vP "lo" \
+	| while read f; do echo "/sys/class/net/$f/statistics/rx_bytes"; done \
+	| xargs cat \
+	| paste -sd "+")))
+CURRENT_TX=$(($( \
+	ls -1 /sys/class/net/ \
+	| grep -vP "lo" \
+	| while read f; do echo "/sys/class/net/$f/statistics/tx_bytes"; done \
+	| xargs cat \
+	| paste -sd "+")))
 
 if [ ! -f "$LOG_FILE" ]; then
 	echo "$DELTA_RX $DELTA_TX" > "$LOG_FILE"
