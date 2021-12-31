@@ -125,7 +125,7 @@ default_border pixel 2
 default_floating_border pixel 2
 
 # Opens Google Chrome
-bindsym Mod1+g exec qutebrowser
+bindsym Mod1+g exec google-chrome
 bindsym Mod1+t exec Telegram
 bindsym Mod1+x exec $term -e pulsemixer
 
