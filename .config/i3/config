@@ -128,6 +128,8 @@ default_floating_border pixel 2
 bindsym Mod1+g exec google-chrome
 bindsym Mod1+t exec Telegram
 bindsym Mod1+x exec $term -e pulsemixer
+bindsym Mod1+o exec $term -e ranger
+
 
 hide_edge_borders smart
 
