@@ -1,0 +1,70 @@
+#!/usr/bin/bash
+
+SEARCH_PATH="."
+if [ ! -z  "$1" ]; then
+	SEARCH_PATH="$1"
+fi
+
+MARK_PATH="
+	$HOME/projects
+	$HOME/school
+	$HOME/Music
+"
+
+if [ "$SEARCH_PATH" == "-m" ]; then
+	SEARCH_PATH=$(for p in $MARK_PATH; do echo $p; done | fzf)
+fi
+
+SELECTED_FILE=$(find $SEARCH_PATH \! -path '*/.git**' | fzf)
+
+if [ -z "$SELECTED_FILE" ]; then
+	exit 0
+fi
+
+IMG_EXTS="jpg jpeg png gif svg"
+VIDEO_EXTS="mp4 avi mkv m4v mpg mpeg"
+PDF_EXTS="pdf"
+DOC_EXTS="doc docx odt ppt pptx xls xlsx"
+MUSIC_EXTS="mp3 ogg wav"
+
+IMG_VIEWER="feh"
+VIDEO_VIEWER="vlc -q"
+PDF_VIEWER="zathura"
+DOC_VIEWER="wps"
+MUSIC_VIEWER="cmus-remote -f"
+EDITOR="nvim"
+
+check_ext() {
+	EXTENSIONS=$1
+	for ext in $EXTENSIONS; do
+		if [[ $SELECTED_FILE == *"$ext" ]]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
+exec_back_and_disown() {
+	echo "Executing '$1 $2'"
+	$1 $2 &
+	disown
+}
+
+if check_ext $IMG_EXTS; then
+	exec_back_and_disown $IMG_VIEWER "$SELECTED_FILE"
+elif check_ext $VIDEO_EXTS; then
+	exec_back_and_disown $VIDEO_VIEWER "$SELECTED_FILE"
+elif check_ext $PDF_EXTS; then
+	exec_back_and_disown $PDF_VIEWER "$SELECTED_FILE"
+elif check_ext $DOC_EXTS; then
+	exec_back_and_disown $DOC_VIEWER "$SELECTED_FILE"
+elif check_ext $MUSIC_EXTS; then
+	$MUSIC_VIEWER "$SELECTED_FILE"
+else
+	if [ -d "$SELECTED_FILE" ]; then
+		cd "$SELECTED_FILE"
+		$EDITOR .
+	else
+		$EDITOR "$SELECTED_FILE"
+	fi
+fi
