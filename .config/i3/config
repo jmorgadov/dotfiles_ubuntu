@@ -53,6 +53,8 @@ floating_modifier Mod1
 bindsym Mod1+Shift+Return exec $HOME/.config/i3/open_tmux.sh
 bindsym Mod1+Return exec $term
 
+# Restart and test dunst
+bindsym Mod1+n --release exec --no-startup-id "killall dunst;notify-send Test"
 
 # kill focused window
 bindsym Mod1+Shift+q kill
@@ -126,7 +128,7 @@ default_floating_border pixel 2
 
 # Opens Google Chrome
 bindsym Mod1+g exec google-chrome
-bindsym Mod1+t exec Telegram
+bindsym Mod1+t exec telegram
 bindsym Mod1+x exec $term -e pulsemixer
 bindsym Mod1+o exec $term -e ranger
 
@@ -264,7 +266,7 @@ bar {
     }
 	# status_command exec bash /home/morgado/.config/i3/status_bar.sh
 	status_command SCRIPT_DIR=~/.config/i3blocks/scripts/ i3blocks
-	font pango:Hack 8
+	font pango:Hack Nerd Font 8
 	bindsym button4 nop
 	bindsym button5 nop
 
