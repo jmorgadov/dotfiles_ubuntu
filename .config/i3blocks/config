@@ -25,6 +25,8 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 # Change $SCRIPT_DIR to the location of your scripts!
+align=center
+separator_block_width=15
 
 [cmus_status]
 command=$SCRIPT_DIR/cmus_status.sh
