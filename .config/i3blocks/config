@@ -48,13 +48,12 @@ interval=1
 markup=pango
 
 [volume]
-label=Vol:
 command=$SCRIPT_DIR/volume.sh
-interval=once
-signal=10
+interval=1
 
 [time]
-command=date '+%c'
+label= 
+command=if [ "${BLOCK_BUTTON}" ]; then kitty --hold -e cal -3; else date +"%a %d %b %R"; fi
 interval=1
 
 [battery]

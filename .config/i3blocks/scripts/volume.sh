@@ -7,6 +7,14 @@ VOL=$(($(amixer -D pulse get Master \
 		 | sed "s/\[\(.*\)%\]/\1/" \
 		 | paste -sd "+")))
 VOL=$(echo "$VOL / 2" | bc)
-printf "%s" "$VOL" && pkill -RTMIN+10 i3blocks
+VOL_ICON=" "
+if [ $VOL -gt 60 ]; then
+	VOL_ICON=" "
+elif [ $VOL -gt 30 ]; then
+	VOL_ICON="墳 "
+elif [ $VOL -gt 0 ]; then
+	VOL_ICON="奔 "
+fi
+printf "%s%s" "$VOL_ICON" "$VOL"
 # printf "VOL"
 # Print the 

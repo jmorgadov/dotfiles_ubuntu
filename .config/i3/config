@@ -272,7 +272,7 @@ set $col_green1 #a3be8c
 set $col_magenta1 #b48ead
 
 bar {
-	separator_symbol "|"
+	separator_symbol " "
 	position top
     colors {
             separator  $col_gray5

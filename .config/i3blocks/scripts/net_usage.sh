@@ -57,5 +57,12 @@ fi
 
 RX_TEXT=$(printf "<span foreground=\"$RX_COLOR\">▼ %s KiB</span>" "$DELTA_RX_KB")
 TX_TEXT=$(printf "<span foreground=\"$TX_COLOR\">▲ %s KiB</span>" "$DELTA_TX_KB")
-printf "%s %s\\n" "$RX_TEXT" "$TX_TEXT"
+
+IP_ADDR=$(ip a | grep -P "\d.*state UP.*" | cut -d ":" -f1 | xargs ip route get | head -n 1 | awk '{print $7}')
+
+if [ ! -z "$IP_ADDR" ]; then
+	IP_ADDR=" $IP_ADDR"
+fi
+
+echo "  $RX_TEXT $TX_TEXT$IP_ADDR"
 echo "$CURRENT_RX $CURRENT_TX" > "$LOG_FILE"

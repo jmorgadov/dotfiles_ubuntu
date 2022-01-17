@@ -18,5 +18,5 @@ else
 	COLOR=$GREEN
 fi
 
-TEXT="CPU $CPU_USAGE %"
+TEXT="龍 $CPU_USAGE %"
 printf "<span foreground=\"$COLOR\">%s</span>\\n" "$TEXT"

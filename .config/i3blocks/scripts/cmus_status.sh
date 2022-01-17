@@ -19,4 +19,4 @@ else
 	exit 0
 fi
 
-echo "$STATUS_ICON $TRUNKED_TRACK"
+echo "  $STATUS_ICON $TRUNKED_TRACK"

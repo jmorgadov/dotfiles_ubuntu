@@ -18,5 +18,5 @@ else
 	COLOR=$GREEN
 fi
 
-TEXT="MEM $F_PERCENT %"
+TEXT=" $F_PERCENT %"
 printf "<span foreground=\"$COLOR\">%s</span>\\n" "$TEXT"
