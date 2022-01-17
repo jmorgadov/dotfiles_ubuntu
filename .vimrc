@@ -165,7 +165,8 @@ if (has("termguicolors"))
 endif
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--hidden,--files prompt_prefix=> <CR>
+" nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--hidden,--files prompt_prefix=> <CR>
+nmap <leader>ff :FZF<CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>

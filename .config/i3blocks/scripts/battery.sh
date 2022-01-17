@@ -11,22 +11,21 @@ POWER=${POWER%?}
 
 STATUS_ICON=""
 if [ "$STATUS" == "Charging," ]; then
-	# Charging emoji
 	STATUS_ICON=""
 elif [ "$STATUS" == "Discharging," ]; then
 	if [ "$POWER" -lt "20" ]; then
-		STATUS_ICON=""
+		STATUS_ICON="▁ "
 	elif [ "$POWER" -lt "40" ]; then
-		STATUS_ICON=""
+		STATUS_ICON="▃ "
 	elif [ "$POWER" -lt "60" ]; then
-		STATUS_ICON=""
+		STATUS_ICON="▅ "
 	elif [ "$POWER" -lt "80" ]; then
-		STATUS_ICON=""
+		STATUS_ICON="▇ "
 	elif [ "$POWER" -lt "100" ]; then
-		STATUS_ICON=""
+		STATUS_ICON=" "
 	fi
 elif [ "$STATUS" == "Full," ]; then
-	STATUS_ICON=""
+	STATUS_ICON="█ "
 fi
 
 COLOR="#ffffff"
@@ -44,5 +43,5 @@ if [ "$STATUS" == "Discharging," ]; then
 	fi
 fi
 
-TEXT=$(echo "$STATUS_ICON $POWER")
+TEXT=$(echo "$STATUS_ICON$POWER")
 printf "<span foreground=\"$COLOR\">%s</span>\\n" "$TEXT"
