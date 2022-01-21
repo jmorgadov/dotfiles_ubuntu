@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Display external by default
-if xrandr | grep HDMI; then xrandr --output eDP --off; fi
+if xrandr --listmonitors | grep HDMI; then xrandr --output eDP --off; fi
 
 # Set wallpaper
 BG_IMAGE_PATH=~/Pictures/wallpaper.jpg
