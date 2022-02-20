@@ -80,6 +80,7 @@ colorscheme nord
 map <leader>p :PlugInstall<Enter>
 map n nzz
 map N Nzz
+nnoremap <C-B> :NERDTreeToggle<CR>
 nnoremap / :set hlsearch<CR>/
 nnoremap ? :set hlsearch<CR>?
 nnoremap # :set hlsearch<CR>#
