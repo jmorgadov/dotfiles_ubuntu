@@ -40,7 +40,8 @@ Plug 'ray-x/material_plus.nvim'
 Plug 'jnurmine/Zenburn'
 Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'xiyaowong/nvim-transparent'
+Plug 'w0ng/vim-hybrid'
+Plug 'cocopon/iceberg.vim'
 
 " Languages
 Plug 'lervag/vimtex'
@@ -74,7 +75,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 call plug#end()
 
 filetype plugin indent on    " required
-colorscheme nord
+colorscheme hybrid
 
 " Personal mappings
 map <leader>p :PlugInstall<Enter>
@@ -147,7 +148,7 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height':0.8 } }
 
 " Status line + Airline
 let g:airline_powerline_fonts=1
-let g:airline_theme='nord'
+let g:airline_theme='bubblegum'
 set statusline+=%{FugitiveHead()}
 
 " Python

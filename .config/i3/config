@@ -271,6 +271,28 @@ set $col_yellow1 #ebcb8b
 set $col_green1 #a3be8c
 set $col_magenta1 #b48ead
 
+# Nord theme
+set $col_gray1 #161718
+set $col_gray2 #1d1e21
+set $col_gray3 #1e1f22
+set $col_gray4 #2a2e33
+set $col_grayl #5a6169
+# Nord snow Storm
+set $col_gray5 #5a6169
+set $col_gray6 #b7bcb9
+set $col_gray7 #eceff4
+# Nord Frost
+set $col_gray8 #4d7b73
+set $col_gray9 #7fbeb3
+set $col_gray10 #6d90b0
+set $col_gray11 #4b6b88
+# Nord Aurora
+set $col_red1 #b74d50
+set $col_orange1 #e5894f
+set $col_yellow1 #e3b55e
+set $col_green1 #b3be5a
+set $col_magenta1 #a07eab
+
 bar {
 	separator_symbol " "
 	position top
@@ -280,9 +302,9 @@ bar {
             # statusline #81a1c1
               
             #                   border      backg        text
-            focused_workspace  $col_gray4   $col_gray4   $col_gray5 
+            focused_workspace  $col_gray4   $col_gray5   $col_gray7 
             active_workspace   $col_gray1   $col_gray4   $col_gray5
-            inactive_workspace $col_gray1   $col_gray1   $col_gray5
+            inactive_workspace $col_gray1   $col_gray1   $col_gray6
             urgent_workspace   $col_gray1   $col_gray3   $col_gray5
             binding_mode       $col_gray1   $col_yellow1 $col_gray1
     }
@@ -297,12 +319,12 @@ bar {
 ##START THEMING WM
 
 # Window color settings
-# class                 border      backgr.     text    indicator
-client.focused          $col_grayl  $col_grayl  #d8dee9 #81a1c1
-client.unfocused        $col_gray2  $col_gray2  #888888 #2e3440
-client.focused_inactive #2e3440     #2e3440     #888888 #2e3440
-client.placeholder      #2e3440     #2e3440     #888888 #2e3440
-client.urgent           #900000     #900000     #ffffff #900000
+# class                 border      backgr.     text        indicator
+client.focused          $col_grayl  $col_grayl  $col_gray7  #81a1c1
+client.unfocused        $col_gray2  $col_gray2  #col_gray6  #2e3440
+client.focused_inactive #2e3440     #2e3440     #888888     #2e3440
+client.placeholder      #2e3440     #2e3440     #888888     #2e3440
+client.urgent           #900000     #900000     #ffffff     #900000
 
 client.background       #242424
 
