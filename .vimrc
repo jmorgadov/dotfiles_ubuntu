@@ -14,11 +14,11 @@ set ignorecase
 set updatetime=500
 set backspace=indent,eol,start
 set guifont=hack_nerd_font:h21
-" set guicursor+=i-v-c-n:blinkon1
+set completeopt=menu,menuone,noselect
 set nofoldenable
-syntax on
 set mouse=a
 let mapleader=" "
+syntax on
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -46,14 +46,19 @@ Plug 'cocopon/iceberg.vim'
 " Languages
 Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
-" Plug 'OmniSharp/omnisharp-vim'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
-Plug 'machakann/vim-Verdin'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Languages general
-Plug 'ycm-core/YouCompleteMe'	" Autocompletion
+Plug 'neovim/nvim-lsp'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'neovim/nvim-lspconfig'
+" Plug 'ycm-core/YouCompleteMe'	" Autocompletion
 Plug 'dense-analysis/ale'		" Linter
-" Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
 
 " Utilf
 Plug 'akinsho/toggleterm.nvim'
@@ -62,14 +67,9 @@ Plug 'tpope/vim-commentary'     " Toggle comentaries on code
 Plug 'vim-airline/vim-airline'  " Powerline
 Plug 'SirVer/ultisnips'			" Some snippets
 Plug 'puremourning/vimspector'	" Debugging
-Plug 'honza/vim-snippets'		" More snippets
 Plug 'tpope/vim-fugitive'		" Git
 Plug 'szw/vim-maximizer'		" Maximize a buffer temporarly (util for vimspector)
 Plug 'norcalli/nvim-colorizer.lua'
-
-" Plug 'vimwiki/vimwiki'
-" Plug 'neovim/nvim-lsp'
-" Plug 'davidhalter/jedi-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -97,6 +97,7 @@ nmap <leader>rl :so ~/.vimrc<CR>
 nmap <leader>q :q<CR>
 nmap <leader>wq :update<CR>:q<CR>
 nnoremap <C-S> :update<cr>
+" nnoremap <C-C> <ESC>
 nnoremap G Gzz
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -112,13 +113,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 map <leader>at :ALEToggle<CR>
 map <leader>gg :G<CR>
-map <leader>gc :G commit<CR>
 map <leader>gl :G log --oneline --graph<CR>
-map <leader>dd :YcmCompleter GoToDefinition<CR>
-map <leader>rr :YcmCompleter GoToReferences<CR>
-map <leader>n :YcmCompleter RefactorRename 
-map <leader>k :YcmCompleter GetDoc<CR>
-map <leader>o :NERDTreeToggle<CR>
 map <leader>hh :set hlsearch!<CR>
 map <leader>ss :mks! .session.vim<CR>
 map <leader>ds :Pydocstring<CR>
@@ -212,3 +207,142 @@ set background=dark
 " let g:transparent_enabled = v:true
 
 lua require('telescope').setup{ defaults = { file_ignore_patterns = {".git"} } }
+
+
+
+" LSP config
+lua << EOF
+
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+-- vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+-- vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>kk', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+local lsp_installer = require("nvim-lsp-installer")
+
+-- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
+-- or if the server is already installed).
+lsp_installer.on_server_ready(function(pyright)
+    local opts = { on_attach = on_attach }
+    pyright:setup(opts)
+end)
+lsp_installer.on_server_ready(function(texlab)
+    local opts = { on_attach = on_attach }
+    texlab:setup(opts)
+end)
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  underline = false,
+  update_in_insert = true,
+  severity_sort = false,
+})
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+EOF
+
+hi DiagnosticError guifg=#CC6666
+hi DiagnosticWarn  guifg=#F0C674
+hi DiagnosticInfo  guifg=#81A2BE
+hi DiagnosticHint  guifg=#B5BD68
+
+
+
+" Autocompletion config
+
+lua <<EOF
+  -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    mapping = {
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+	  -- { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+  --}
+EOF
+
+
+" Trouble config
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+lua << EOF
+  require("trouble").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+
+" " Linter config
+" lua << EOF
+" local null_ls = require("null-ls")
+" null_ls.setup({
+"     sources = {
+"         null_ls.builtins.formatting.black,
+"         null_ls.builtins.diagnostics.pylint,
+"         -- null_ls.builtins.completion.spell,
+"     },
+" })
+" EOF
+" map <leader>fi :lua vim.lsp.buf.formatting_sync()<CR>
