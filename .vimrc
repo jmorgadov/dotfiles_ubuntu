@@ -68,6 +68,7 @@ Plug 'vim-airline/vim-airline'  " Powerline
 Plug 'SirVer/ultisnips'			" Some snippets
 Plug 'puremourning/vimspector'	" Debugging
 Plug 'tpope/vim-fugitive'		" Git
+Plug 'junegunn/gv.vim'
 Plug 'szw/vim-maximizer'		" Maximize a buffer temporarly (util for vimspector)
 Plug 'norcalli/nvim-colorizer.lua'
 
@@ -113,10 +114,12 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 map <leader>at :ALEToggle<CR>
 map <leader>gg :G<CR>
-map <leader>gl :G log --oneline --graph<CR>
+" map <leader>gl :G log --oneline --graph<CR>
 map <leader>hh :set hlsearch!<CR>
 map <leader>ss :mks! .session.vim<CR>
 map <leader>ds :Pydocstring<CR>
+map <leader>tr :Telescope resume<CR>
+map <leader>gl :GV --all<CR>
 
 " Vim markdown
 let g:vim_markdown_conceal = 2
@@ -248,22 +251,18 @@ local lsp_installer = require("nvim-lsp-installer")
 
 -- Register a handler that will be called for each installed server when it's ready (i.e. when installation is finished
 -- or if the server is already installed).
-lsp_installer.on_server_ready(function(pyright)
+lsp_installer.on_server_ready(function(server)
     local opts = { on_attach = on_attach }
-    pyright:setup(opts)
-end)
-lsp_installer.on_server_ready(function(texlab)
-    local opts = { on_attach = on_attach }
-    texlab:setup(opts)
+    server:setup(opts)
 end)
 
 -- Show line diagnostics automatically in hover window
 vim.o.updatetime = 250
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+-- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 vim.diagnostic.config({
-  virtual_text = false,
+  virtual_text = true,
   signs = true,
-  underline = false,
+  underline = true,
   update_in_insert = true,
   severity_sort = false,
 })
