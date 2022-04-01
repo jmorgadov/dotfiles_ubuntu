@@ -17,6 +17,7 @@ vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.foldenable = false
 vim.opt.mouse = "a"
 vim.opt.syntax = "on"
+vim.opt.background = "dark"
 vim.g.mapleader = " "
 
 vim.cmd [[

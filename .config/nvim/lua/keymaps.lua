@@ -17,7 +17,7 @@ nmap("?", ":set hlsearch<CR>?")
 nmap("#", ":set hlsearch<CR>#")
 nmap("*", ":set hlsearch<CR>*")
 
--- imap("<C-Space>". "<C-X><C-O>")
+imap("<C-Space>", "<C-X><C-O>")
 nmap("J", "7j")
 nmap("K", "7k")
 

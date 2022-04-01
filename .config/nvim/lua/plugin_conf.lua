@@ -20,10 +20,14 @@ vim.g.ale_linters = { python = { "pylint" } }
 vim.g.ale_fixers = { python = { "black" } }
 vim.g.ale_python_executable = "python3"
 vim.g.ale_python_pylint_use_global = 1
+cmd [[ highlight ALEWarning ctermfg=none cterm=underline ]]
+cmd [[ highlight ALEErrorSign ctermbg=none ]]
+cmd [[ highlight ALEWarningSign ctermbg=none ]]
+cmd [[ let g:ale_pattern_options = { '.*tests/.*' : { 'ale_enabled' : 0 } } ]]
 
 -- Vimtex
-cmd [[ autocmd FileType tex map <F5> :call vimtex#compiler#start() ]]
-cmd [[ autocmd FileType tex map <F6> :call vimtex#compiler#stop() ]]
+cmd [[ autocmd FileType tex map <F5> :call vimtex#compiler#start()<CR> ]]
+cmd [[ autocmd FileType tex map <F6> :call vimtex#compiler#stop()<CR> ]]
 
 -- Markdown
 vim.g.vim_markdown_conceal = 2
