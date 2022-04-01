@@ -82,7 +82,6 @@ colorscheme hybrid
 map <leader>p :PlugInstall<Enter>
 map n nzz
 map N Nzz
-nnoremap <C-B> :NERDTreeToggle<CR>
 nnoremap / :set hlsearch<CR>/
 nnoremap ? :set hlsearch<CR>?
 nnoremap # :set hlsearch<CR>#
@@ -90,7 +89,6 @@ nnoremap * :set hlsearch<CR>*
 xmap <C-Space> <C-X><C-O>
 nnoremap J 7j
 nnoremap K 7k
-nmap <leader>t :ToggleTerm size=90 direction=vertical<CR>
 nnoremap // :vs<CR>
 nnoremap -- :sp<CR>
 nmap <leader>rc //:e ~/.config/nvim/init.vim<CR>
@@ -98,23 +96,9 @@ nmap <leader>rl :so ~/.vimrc<CR>
 nmap <leader>q :q<CR>
 nmap <leader>wq :update<CR>:q<CR>
 nnoremap <C-S> :update<cr>
-" nnoremap <C-C> <ESC>
 nnoremap G Gzz
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-h> <C-\><C-N><C-w>h
-inoremap <C-j> <C-\><C-N><C-w>j
-inoremap <C-k> <C-\><C-N><C-w>k
-inoremap <C-l> <C-\><C-N><C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 map <leader>at :ALEToggle<CR>
 map <leader>gg :G<CR>
-" map <leader>gl :G log --oneline --graph<CR>
 map <leader>hh :set hlsearch!<CR>
 map <leader>ss :mks! .session.vim<CR>
 map <leader>ds :Pydocstring<CR>
@@ -133,13 +117,6 @@ let g:vim_markdown_follow_anchor = 1
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd FileType markdown set conceallevel=0
 autocmd FileType markdown :normal zR
-
-" OmniSharp
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
-let g:SuperTabClosePreviewOnPopupClose = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " FZF
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height':0.8 } }
@@ -253,6 +230,15 @@ local lsp_installer = require("nvim-lsp-installer")
 -- or if the server is already installed).
 lsp_installer.on_server_ready(function(server)
     local opts = { on_attach = on_attach }
+	if server.name == "sumneko_lua" then
+		opts.settings = {
+			Lua = {
+				diagnostics = {
+					globals = { 'vim', 'use'}
+				}
+			}
+		}
+	end
     server:setup(opts)
 end)
 
@@ -325,7 +311,7 @@ EOF
 " Trouble config
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 lua << EOF
-  require("trouble").setup {
+require("trouble").setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
