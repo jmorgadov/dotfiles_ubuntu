@@ -50,9 +50,14 @@ nmap("<leader>fh", ":Telescope help_tags<CR>")
 nmap("<leader>gb", ":Telescope git_branches<CR>")
 
 nmap('<C-T>', ':Ttoggle<CR>')
-tmap('<C-T>', ':Ttoggle<CR>')
+tmap('<C-T>', '<C-\\><C-N>:Ttoggle<CR>')
+nmap("<leader>o", ":Tsend ranger<CR><C-\\><C-N>:resize 40<CR>:startinsert<CR>")
+
+nmap("<leader>xx", ":TroubleToggle<CR>")
 
 tmap("<C-W>h", "<C-\\><C-N><C-W>h")
 tmap("<C-W>j", "<C-\\><C-N><C-W>j")
 tmap("<C-W>k", "<C-\\><C-N><C-W>k")
 tmap("<C-W>l", "<C-\\><C-N><C-W>l")
+
+
