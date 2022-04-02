@@ -10,6 +10,10 @@ local function imap(shortcut, command)
   map('i', shortcut, command)
 end
 
+local function tmap(shortcut, command)
+  map('t', shortcut, command)
+end
+
 nmap("n", "nzz")
 nmap("N", "Nzz")
 nmap("/", ":set hlsearch<CR>/")
@@ -25,6 +29,8 @@ nmap("//", ":vs<CR>")
 nmap("--", ":sp<CR>")
 
 nmap("<leader>rl", ":so ~/.config/nvim/init.lua<CR>")
+nmap("<leader>rc", ":vs<CR>:Ex ~/.config/nvim<CR>")
+nmap("<leader>p", ":PlugInstall<CR>")
 nmap("<C-S>", ":update<CR>")
 nmap("<leader>wq", ":wq<CR>")
 nmap("<leader>q", ":q<CR>")
@@ -42,3 +48,11 @@ nmap("<leader>fg", ":Telescope live_grep<CR>")
 nmap("<leader>fb", ":Telescope buffers<CR>")
 nmap("<leader>fh", ":Telescope help_tags<CR>")
 nmap("<leader>gb", ":Telescope git_branches<CR>")
+
+nmap('<C-T>', ':Ttoggle<CR>')
+tmap('<C-T>', ':Ttoggle<CR>')
+
+tmap("<C-W>h", "<C-\\><C-N><C-W>h")
+tmap("<C-W>j", "<C-\\><C-N><C-W>j")
+tmap("<C-W>k", "<C-\\><C-N><C-W>k")
+tmap("<C-W>l", "<C-\\><C-N><C-W>l")

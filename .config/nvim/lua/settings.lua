@@ -18,6 +18,7 @@ vim.opt.foldenable = false
 vim.opt.mouse = "a"
 vim.opt.syntax = "on"
 vim.opt.background = "dark"
+vim.opt.termguicolors = true
 vim.g.mapleader = " "
 
 vim.cmd [[
@@ -28,5 +29,6 @@ vim.cmd [[
   hi DiagnosticWarn  guifg=#F0C674
   hi DiagnosticInfo  guifg=#81A2BE
   hi DiagnosticHint  guifg=#B5BD68
+  autocmd BufWinEnter,WinEnter term://* startinsert
 ]]
 

@@ -19,12 +19,15 @@ Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 Plug 'cocopon/iceberg.vim'
+Plug 'doums/darcula'
+Plug 'lifepillar/vim-gruvbox8'
 
 -- Languages
 Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
 
 -- Languages general
+vim.cmd [[ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} ]]
 Plug 'neovim/nvim-lsp'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
@@ -35,6 +38,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 
 -- Utilf
+Plug 'sunjon/shade.nvim'
+Plug 'oberblastmeister/termwrapper.nvim'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'     -- Toggle comentaries on code
