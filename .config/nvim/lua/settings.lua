@@ -24,11 +24,6 @@ vim.g.mapleader = " "
 vim.cmd [[
   filetype off
   filetype plugin indent on
-  colorscheme hybrid
-  hi DiagnosticError guifg=#CC6666
-  hi DiagnosticWarn  guifg=#F0C674
-  hi DiagnosticInfo  guifg=#81A2BE
-  hi DiagnosticHint  guifg=#B5BD68
   autocmd BufWinEnter,WinEnter term://* startinsert
 ]]
 

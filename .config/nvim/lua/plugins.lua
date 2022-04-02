@@ -21,6 +21,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'cocopon/iceberg.vim'
 Plug 'doums/darcula'
 Plug 'lifepillar/vim-gruvbox8'
+Plug 'sainnhe/everforest'
 
 -- Languages
 Plug 'lervag/vimtex'
@@ -38,6 +39,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 
 -- Utilf
+Plug 'onsails/lspkind-nvim'
 Plug 'sunjon/shade.nvim'
 Plug 'oberblastmeister/termwrapper.nvim'
 Plug 'akinsho/toggleterm.nvim'
