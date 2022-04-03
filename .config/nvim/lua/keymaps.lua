@@ -60,4 +60,4 @@ tmap("<C-W>j", "<C-\\><C-N><C-W>j")
 tmap("<C-W>k", "<C-\\><C-N><C-W>k")
 tmap("<C-W>l", "<C-\\><C-N><C-W>l")
 
-
+nmap("<leader>fi", ":ALEFix<CR>")

@@ -2,7 +2,7 @@ local cmd = vim.cmd
 
 -- Airline
 vim.g.airline_powerline_fonts = 1
-vim.g.airline_theme = "bubblegum"
+vim.g.airline_theme = "base16_tomorrow"
 cmd [[ let g:airline#extensions#tabline#enabled = 0 ]]
 
 -- FZF
@@ -66,7 +66,7 @@ require"termwrapper".setup {
 
 -- Shade
 require'shade'.setup({
-  overlay_opacity = 50,
+  overlay_opacity = 100,
   opacity_step = 1,
   keys = {
     brightness_up    = '<C-Up>',
